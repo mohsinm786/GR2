@@ -1,0 +1,47 @@
+.leadership_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 380px;
+    min-width: 380px;
+    /* padding: 1rem; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.child_1 {
+    width: 100%;
+}
+
+.child_2 {
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.leader_img {
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    object-fit: contain;
+}
+
+h1, h5 {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h1 {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+}
+
+h5 {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+}
