@@ -31,18 +31,24 @@ public class ModularController : ControllerBase
         newModular.Comments = modularEnquiry.Comments;
         newModular.IsDeleted = 0;
         newModular.CreatedAt = DateTime.UtcNow;
-        string uploadsFolder = Path.Combine(_env.WebRootPath, "Uploads");
-        if (!Directory.Exists(uploadsFolder))
+        if (modularEnquiry.File != null && modularEnquiry.File.Length > 0)
         {
-            Directory.CreateDirectory(uploadsFolder);
+            string uploadsFolder = Path.Combine(_env.WebRootPath, "Uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(modularEnquiry.File.FileName);
+            string filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await modularEnquiry.File.CopyToAsync(fileStream);
+            }
+
+            newModular.FileUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{fileName}";
         }
-        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(modularEnquiry?.File?.FileName);
-        string filePath = Path.Combine(uploadsFolder, fileName);
-        using (var fileStream = new FileStream(filePath, FileMode.Create))
-        {
-            await modularEnquiry?.File?.CopyToAsync(fileStream);
-        }
-        newModular.FileUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{fileName}";
 
         _context.ModularEnquiries.Add(newModular);
         await _context.SaveChangesAsync();

@@ -48,7 +48,6 @@ public class UserController : ControllerBase
         oldUser.Password = user.Password;
         oldUser.Username = user.Username;
         oldUser.IsDeleted = 0;
-        oldUser.CreatedAt = DateTime.UtcNow;
         _context.Users.Update(oldUser);
         await _context.SaveChangesAsync();
         return Ok();
