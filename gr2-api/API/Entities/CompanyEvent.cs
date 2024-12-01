@@ -8,5 +8,7 @@ public class CompanyEvent
     public string? ImageUrl { get; set; }
     public int IsDeleted { get; set; }
     public DateTime CreatedAt { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

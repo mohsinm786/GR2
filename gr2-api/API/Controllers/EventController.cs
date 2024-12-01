@@ -26,6 +26,8 @@ public class EventController : ControllerBase
         companyEvent.Description = newEvent.Description;
         companyEvent.IsDeleted = 0;
         companyEvent.CreatedAt = DateTime.UtcNow;
+        companyEvent.StartDate = newEvent.StartDate;
+        companyEvent.EndDate = newEvent.EndDate;
         string uploadsFolder = Path.Combine(_env.WebRootPath, "Uploads");
         if (!Directory.Exists(uploadsFolder))
         {
@@ -41,7 +43,11 @@ public class EventController : ControllerBase
 
         _context.CompanyEvents.Add(companyEvent);
         await _context.SaveChangesAsync();
-        return Ok();
+        return Ok(new
+        {
+            status = "success",
+            message = "Event added successfully",
+        });
     }
 
     [HttpPut]
@@ -55,6 +61,8 @@ public class EventController : ControllerBase
         }
 
         oldEvent.Name = newEvent.Name;
+        oldEvent.StartDate = newEvent.StartDate;
+        oldEvent.EndDate = newEvent.EndDate;
         oldEvent.Description = newEvent.Description;
         oldEvent.IsDeleted = 0;
         string uploadsFolder = Path.Combine(_env.WebRootPath, "Uploads");
@@ -72,7 +80,11 @@ public class EventController : ControllerBase
 
         _context.CompanyEvents.Update(oldEvent);
         await _context.SaveChangesAsync();
-        return Ok();
+        return Ok(new
+        {
+            status = "success",
+            message = "Event added successfully",
+        });
     }
 
     [HttpGet]
